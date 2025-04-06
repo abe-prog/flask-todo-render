@@ -2,7 +2,7 @@
 
 {% block title %}ToDo List{% endblock %}
 
-{% block header %}My ToDo List{% endblock %}
+{% block header %}My Simple ToDo List{% endblock %}
 
 {% block content %}
     <form method="POST" action="{{ url_for('add_task') }}">
@@ -12,25 +12,28 @@
 
     <h2>タスク一覧</h2>
     <ul>
-        {# データベースから取得したToDoオブジェクトのリストをループ #}
-        {% for todo in todos %}
+        {# enumerateを使ってインデックスを取得 #}
+        {% for index, todo in enumerate(todos) %}
             <li>
                 <span class="{{ 'done' if todo.done else '' }}">
-                    {# オブジェクトの属性にアクセス #}
                     {{ todo.task }}
                 </span>
                 <span class="actions">
                     {% if todo.done %}
-                        {# ルートにはリストのインデックスではなく、ToDoのIDを渡す #}
-                        <a href="{{ url_for('check_task', id=todo.id) }}">未完了に戻す</a>
+                        {# url_for には index を渡す #}
+                        <a href="{{ url_for('check_task', index=index) }}">未完了に戻す</a>
                     {% else %}
-                        <a href="{{ url_for('check_task', id=todo.id) }}">完了にする</a>
+                        <a href="{{ url_for('check_task', index=index) }}">完了にする</a>
                     {% endif %}
-                    <a href="{{ url_for('delete_task', id=todo.id) }}" class="delete">削除</a>
+                    {# url_for には index を渡す #}
+                    <a href="{{ url_for('delete_task', index=index) }}" class="delete">削除</a>
                 </span>
             </li>
         {% else %}
             <li>タスクはありません。</li>
         {% endfor %}
     </ul>
+    <p style="font-size: small; color: grey; margin-top: 20px;">
+        注意: このリストはサーバーが再起動するとリセットされます。
+    </p>
 {% endblock %}
