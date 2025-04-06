@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ToDo App{% endblock %}</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 10px; padding: 10px; border: 1px solid #ccc; display: flex; justify-content: space-between; align-items: center; }
+        .actions a { margin-left: 10px; text-decoration: none; color: blue; }
+        .actions a.delete { color: red; }
+        .done { text-decoration: line-through; color: grey; }
+        form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>{% block header %}Simple ToDo App{% endblock %}</h1>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
